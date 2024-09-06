@@ -1,0 +1,4 @@
+node_modules
+build/models/index.js
+dist
+uploads
