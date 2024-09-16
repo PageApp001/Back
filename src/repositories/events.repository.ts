@@ -22,7 +22,7 @@ export class EventsRepository implements IEventRepository<EventsAttributes, numb
     }
     async create(payload: any, callback: any): Promise<EventsAttributes> {
         try {
-            const event = await db.Evens.create(payload)
+            const event = await db.Events.create(payload)
             return event
         } catch (error) {
             console.log(error);
