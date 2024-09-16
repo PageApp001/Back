@@ -34,6 +34,15 @@ app.use('/api', router);
 // Servir archivos estáticos desde la carpeta uploads
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
+const angularDistPath = path.join(__dirname, '../dist/intranet'); // Ajusta el nombre de la carpeta
+
+app.use(express.static(angularDistPath));
+
+// Redirigir todas las rutas no gestionadas por la API a 'index.html'
+app.get('*', (req, res) => {
+    res.sendFile(path.join(angularDistPath, 'index.html'));
+});
+
 db.sequelize.sync().then(() => {
     app.listen(3000, () => {
         console.log("Se conecto correctamente");
