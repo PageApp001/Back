@@ -31,11 +31,11 @@ app.use((
 
 app.use('/api', router);
 
-// Servir archivos estáticos desde la carpeta uploads
+// Servir archivos estáticos desde la carpeta uploads.
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-const angularDistPath = path.join(__dirname, '../dist/intranet'); // Ajusta el nombre de la carpeta
 
+const angularDistPath = path.join(__dirname, '../dist/intranet');
 app.use(express.static(angularDistPath));
 
 // Redirigir todas las rutas no gestionadas por la API a 'index.html'

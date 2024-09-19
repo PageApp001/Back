@@ -14,7 +14,7 @@ export class BirthdayRepository implements IBirthdaylRepository<BirthdayAttribut
 
     async findOne(id: number): Promise<BirthdayAttributes> {
         try {
-            const image = await db.c.findByPk(id);
+            const image = await db.Birthday.findByPk(id);
             return image;
         } catch (error) {
             throw new Error("Can't find image with id: " + id);

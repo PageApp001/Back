@@ -14,10 +14,10 @@ export class EventsRepository implements IEventRepository<EventsAttributes, numb
 
     async findOne(id: number): Promise<EventsAttributes> {
         try {
-            const event = await db.Events.findById(id);
+            const event = await db.Events.findByPk(id);
             return event
         } catch (error) {
-            throw new Error("can't find event with id: " + id)
+            throw new Error("Can't find event with id: " + id)
         }
     }
     async create(payload: any, callback: any): Promise<EventsAttributes> {
@@ -42,7 +42,7 @@ export class EventsRepository implements IEventRepository<EventsAttributes, numb
         }
     }
     async delete(id: number): Promise<void> {
-        const existingEvent = await db.Events.findOne(id)
+        const existingEvent = await this.findOne(id)
         if (!existingEvent) {
             throw new Error('Event not found');
         }
