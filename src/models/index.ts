@@ -15,12 +15,12 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(
-    config.development.database,
-    config.development.username,
-    config.development.password,
+    config.test.database,
+    config.test.username,
+    config.test.password,
     {
-      host: config.development.host,
-      dialect: config.development.dialect,
+      host: config.test.host,
+      dialect: config.test.dialect,
     }
   );
 }

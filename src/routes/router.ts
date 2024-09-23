@@ -7,6 +7,7 @@ import linkRoutes from "./link.routes";
 import birthdayRoutes from "./birthday.routes";
 import eventRoutes from "./events.routes";
 
+
 const router = Router();
 
 // User routes

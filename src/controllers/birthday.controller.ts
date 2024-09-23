@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from "express";
-import { BirthdayService } from "../services/birthday.serveces";
+import { BirthdayService } from "../services/birthday.services";
 
 export const createBirthdaylImage: RequestHandler = async (
   req: Request,
