@@ -4,5 +4,4 @@ export interface NewsAttributes {
     descripcion: string;
     imagen: string | null;
     fechaPublicacion: Date;
-    activo: boolean;
 }

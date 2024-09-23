@@ -20,21 +20,6 @@ export const createNews: RequestHandler = async (
       fechaPublicacion,
     });
 
-    // Enviar notificación push a todos los suscriptores
-    const notificationPayload = JSON.stringify({
-      title: "Nueva publicación creada",
-      body: titulo,
-      icon: "assets/icons/icon-72x72.png",
-    });
-
-    subscriptions.forEach((subscription) => {
-      webPush
-        .sendNotification(subscription, notificationPayload)
-        .catch((error) => {
-          console.error("Error al enviar notificación: ", error);
-        });
-    });
-    //-------------------------------------------------
     return res.status(201).json({
       message: "News created successfully",
       data: news,
