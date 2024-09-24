@@ -9,7 +9,7 @@ import path from "path";
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:4200",
+  origin: " http://localhost:4200/",
 };
 app.use(cors(corsOptions));
 
