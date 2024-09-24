@@ -23,7 +23,7 @@ class UserRepository {
                 return users;
             }
             catch (error) {
-                throw new Error("Can't fetch all users.");
+                throw new Error("Can't fetch all users. (repository) ");
             }
         });
     }
@@ -34,7 +34,7 @@ class UserRepository {
                 return user;
             }
             catch (error) {
-                throw new Error("Can't find user with email: " + email);
+                throw new Error(" (repository) Can't find user with email: " + email);
             }
         });
     }
@@ -44,7 +44,7 @@ class UserRepository {
             const hashedPassword = yield bcrypt_1.default.hash(password, 10);
             const alreadyExist = yield models_1.default.User.findOne({ where: { email } });
             if (alreadyExist) {
-                throw new Error('User already exist');
+                throw new Error('User already exist (repository) ');
             }
             try {
                 const userRole = role || 'user'; // Si no se proporciona, utilizar el valor predeterminado 'user'

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// src/models/subscription.ts
 const sequelize_1 = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Subscription extends sequelize_1.Model {
@@ -11,20 +12,15 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
         },
         endpoint: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
-        },
-        expirationTime: {
-            type: DataTypes.DATE,
-            allowNull: true,
         },
         keys: {
-            type: DataTypes.JSON,
-            allowNull: false,
+            type: DataTypes.TEXT,
+            allowNull: true, // Puede ser `null` dependiendo de la implementación
         },
     }, {
         sequelize,
-        tableName: 'subscriptions',
+        modelName: 'Subscription',
     });
-    return Subscription;
 };
