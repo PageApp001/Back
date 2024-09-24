@@ -10,6 +10,7 @@ const app = express();
 
 const corsOptions = {
   origin: ["http://localhost:4200", "https://front-xi-ashen.vercel.app"], // Permite múltiples orígenes
+  methods: "GET,POST,PUT,DELETE",
   credentials: true, // Si necesitas que se envíen cookies con solicitudes CORS
 };
 app.use(cors(corsOptions));
