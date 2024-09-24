@@ -6,12 +6,12 @@
     "host": "localhost",
     "dialect": "mysql"
   },
-  "test": {
-    "username": "",
-    "password": "",
-    "database": "",
-    "host": "",
-    "dialect": ""
+ "test": {
+    "username": "uul3bgsxydrbk09i",
+    "password": "ZwWqXA13Xru6u1mU8JiZ",
+    "database": "bfv0pzxxdlahrmxw2nlc",
+    "host": "bfv0pzxxdlahrmxw2nlc-mysql.services.clever-cloud.com",
+    "dialect": "mysql"
   },
   "production": {
     "username": "",
