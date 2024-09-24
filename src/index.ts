@@ -9,10 +9,12 @@ import path from "path";
 const app = express();
 
 const corsOptions = {
-  origin: ["http://localhost:4200", "https://front-xi-ashen.vercel.app"], // Permite múltiples orígenes
-  methods: "GET,POST,PUT,DELETE",
-  credentials: true, // Si necesitas que se envíen cookies con solicitudes CORS
+  origin: ["http://localhost:4200", "https://front-xi-ashen.vercel.app"], // Añade los dominios permitidos
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // Permitir envío de cookies y credenciales si es necesario
 };
+
 app.use(cors(corsOptions));
 
 app.use(json());
