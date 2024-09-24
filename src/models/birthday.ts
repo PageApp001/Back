@@ -1,4 +1,4 @@
-import { Model, UUIDV4 } from 'sequelize';
+import { Model} from 'sequelize';
 
 export interface BirthdayAttributes {
     id?: number;

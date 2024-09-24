@@ -30,7 +30,7 @@ fs.readdirSync(__dirname)
     return (
       file.indexOf(".") !== 0 &&
       file !== basename &&
-      file.slice(-3) === ".ts" &&
+      file.slice(-3) === ".js" || file.slice(-3) === ".ts" &&
       file.indexOf(".test.ts") === -1
     );
   })
@@ -39,12 +39,14 @@ fs.readdirSync(__dirname)
       sequelize,
       Sequelize.DataTypes
     );
+
     // db[model.name] = model;
     if (model && model.name) {
       db[model.name] = model;
     } else {
       console.error(`El modelo en ${file} no se cargó correctamente o no tiene la propiedad 'name'.`);
     }
+
   });
 
 Object.keys(db).forEach((modelName) => {

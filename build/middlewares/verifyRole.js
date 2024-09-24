@@ -1,16 +1,4 @@
 "use strict";
-// import { Response, Request, NextFunction } from "express";
-// // Middleware de autorización para verificar el rol del usuario
-// export const isAdmin = (
-//     req: any,
-//     res: Response,
-//     next: NextFunction) => {
-//     if (req.user && req.user.role === 'admin') {
-//         next(); // Permitir el acceso si el usuario tiene el rol de administrador
-//     } else {
-//         res.status(403).json({ message: 'Unauthorized' }); // Devolver un error de acceso no autorizado
-//     }
-// };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };

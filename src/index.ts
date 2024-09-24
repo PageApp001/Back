@@ -1,10 +1,10 @@
-import express from 'express';
-import db from './models/index';
-import router from './routes/router';
-import { json, urlencoded } from 'body-parser';
-import './auth/passport';
-import cors from 'cors';
-import path from 'path';
+import express from "express";
+import db from "./models/index";
+import router from "./routes/router";
+import { json, urlencoded } from "body-parser";
+import "./auth/passport";
+import cors from "cors";
+import path from "path";
 
 const app = express();
 
@@ -12,44 +12,45 @@ const app = express();
 app.use(cors());
 
 app.use(json());
-app.use(urlencoded({
-    extended: true
-}))
+app.use(
+  urlencoded({
+    extended: true,
+  })
+);
 
-app.use((
+app.use(
+  (
     err: Error,
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction,
-) => {
+    next: express.NextFunction
+  ) => {
     res.status(500).json({
-        message: err.message
-    })
-});
+      message: err.message,
+    });
+  }
+);
 
-app.use('/api', router);
+app.use("/api", router);
 
 // Servir archivos estáticos desde la carpeta uploads.
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-
-const angularDistPath = path.join(__dirname, '../dist/intranet');
+const angularDistPath = path.join(__dirname, "../dist/intranet");
 app.use(express.static(angularDistPath));
 
-// Redirigir todas las rutas no gestionadas por la API a 'index.html'
-app.get('*', (req, res) => {
-    res.sendFile(path.join(angularDistPath, 'index.html'));
-});
-
-db.sequelize.sync().then(() => {
+// servidor
+db.sequelize
+  .sync()
+  .then(() => {
     app.listen(3000, () => {
-        console.log("Se conecto correctamente");
-    })
-
-}).catch((e: Error) => {
+      console.log("Se conecto correctamente");
+    });
+  })
+  .catch((e: Error) => {
     console.log("here");
 
     console.log(e.message);
-})
+  });
 
 export default app;
