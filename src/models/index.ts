@@ -15,12 +15,12 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(
-    config.development.database,
-    config.development.username,
-    config.development.password,
+    config.test.database,
+    config.test.username,
+    config.test.password,
     {
-      host: config.development.host,
-      dialect: config.development.dialect,
+      host: config.test.host,
+      dialect: config.test.dialect,
     }
   );
 }
@@ -30,7 +30,7 @@ fs.readdirSync(__dirname)
     return (
       file.indexOf(".") !== 0 &&
       file !== basename &&
-      file.slice(-3) === ".ts" &&
+      file.slice(-3) === ".js" || file.slice(-3) === ".ts" &&
       file.indexOf(".test.ts") === -1
     );
   })
@@ -40,6 +40,7 @@ fs.readdirSync(__dirname)
       Sequelize.DataTypes
     );
     db[model.name] = model;
+    console.log(`Loaded model: ${model.name}`);  // log para depuración
   });
 
 Object.keys(db).forEach((modelName) => {

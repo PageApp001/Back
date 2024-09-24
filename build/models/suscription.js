@@ -2,34 +2,29 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class News extends sequelize_1.Model {
+    class Subscription extends sequelize_1.Model {
     }
-    News.init({
+    Subscription.init({
         id: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,
         },
-        titulo: {
+        endpoint: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        descripcion: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
-        imagen: {
-            type: DataTypes.STRING,
-            allowNull: true, // cambiar esto a false si la imagen es obligatoria
-        },
-        fechaPublicacion: {
+        expirationTime: {
             type: DataTypes.DATE,
+            allowNull: true,
+        },
+        keys: {
+            type: DataTypes.JSON,
             allowNull: false,
-            defaultValue: DataTypes.NOW,
         },
     }, {
         sequelize,
-        tableName: 'news',
+        tableName: 'subscriptions',
     });
-    return News;
+    return Subscription;
 };

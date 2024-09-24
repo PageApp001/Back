@@ -7,7 +7,7 @@ export const createEvent: RequestHandler = async (
 ) => {
   const eventsService = new EventsService();
   try {
-    const { nombre, descripcion , fechaInicio, horaInicio } = req.body;
+    const { nombre, descripcion, fechaInicio, horaInicio } = req.body;
     const fechaPublicacion = new Date();
 
     const event = await eventsService.create({
@@ -17,7 +17,6 @@ export const createEvent: RequestHandler = async (
       horaInicio,
       fechaPublicacion,
     });
-
     return res.status(201).json({
       message: "Event create successfully",
       data: event,
@@ -69,7 +68,8 @@ export const updateEvents: RequestHandler = async (
   const { id } = req.params;
   const eventService = new EventsService();
   try {
-    const { nombre, descripcion, fechaInicio, horaInicio, fechaPublicacion } = req.body;
+    const { nombre, descripcion, fechaInicio, horaInicio, fechaPublicacion } =
+      req.body;
     const event = await eventService.update(id, {
       nombre,
       descripcion,
@@ -77,13 +77,10 @@ export const updateEvents: RequestHandler = async (
       horaInicio,
       fechaPublicacion,
     });
-    return (
-      res.status(200).
-      json({
-        message: "Event update successfully",
-        data: event,
-      })
-    );
+    return res.status(200).json({
+      message: "Event update successfully",
+      data: event,
+    });
   } catch (error: any) {
     return res.status(500).json({
       messsage: error.message,

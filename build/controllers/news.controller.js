@@ -9,23 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteNews = exports.updateNews = exports.getNewsById = exports.getNews = exports.createNews = void 0;
+exports.subscribe = exports.deleteNews = exports.updateNews = exports.getNewsById = exports.getNews = exports.createNews = void 0;
 const news_services_1 = require("../services/news.services");
+const subscriptions = [];
 const createNews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newsService = new news_services_1.NewsService();
     try {
-        console.log(req.body);
-        const { titulo, descripcion, fechaPublicacion, activo } = req.body;
+        const { titulo, descripcion } = req.body;
         const imagen = req.file ? req.file.filename : null;
-        const news = yield newsService.create({ titulo, descripcion, imagen, fechaPublicacion, activo });
+        const fechaPublicacion = new Date();
+        const news = yield newsService.create({
+            titulo,
+            descripcion,
+            imagen,
+            fechaPublicacion,
+        });
         return res.status(201).json({
             message: "News created successfully",
-            data: news
+            data: news,
         });
     }
     catch (error) {
         return res.status(500).json({
-            message: error.message
+            message: error.message,
         });
     }
 });
@@ -38,7 +44,7 @@ const getNews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         return res.status(500).json({
-            message: error.message
+            message: error.message,
         });
     }
 });
@@ -52,7 +58,7 @@ const getNewsById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         return res.status(500).json({
-            message: error.message
+            message: error.message,
         });
     }
 });
@@ -61,17 +67,22 @@ const updateNews = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const { id } = req.params;
     const newsService = new news_services_1.NewsService();
     try {
-        const { titulo, descripcion, fechaPublicacion, activo } = req.body;
+        const { titulo, descripcion, fechaPublicacion } = req.body;
         const imagen = req.file ? req.file.filename : req.body.imagen;
-        const news = yield newsService.update(id, { titulo, descripcion, imagen, fechaPublicacion, activo });
+        const news = yield newsService.update(id, {
+            titulo,
+            descripcion,
+            imagen,
+            fechaPublicacion,
+        });
         return res.status(200).json({
             message: "News updated successfully",
-            data: news
+            data: news,
         });
     }
     catch (error) {
         return res.status(500).json({
-            message: error.message
+            message: error.message,
         });
     }
 });
@@ -82,13 +93,19 @@ const deleteNews = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         yield newsService.delete(id);
         return res.status(200).json({
-            message: "News deleted successfully"
+            message: "News deleted successfully",
         });
     }
     catch (error) {
         return res.status(500).json({
-            message: error.message
+            message: error.message,
         });
     }
 });
 exports.deleteNews = deleteNews;
+const subscribe = (req, res) => {
+    const subscription = req.body;
+    subscriptions.push(subscription);
+    res.status(201).json({});
+};
+exports.subscribe = subscribe;

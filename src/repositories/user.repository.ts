@@ -10,7 +10,7 @@ export class UserRepository implements IUserRepository<UserAttributes, string> {
             const users = await db.User.findAll();
             return users;
         } catch (error) {
-            throw new Error("Can't fetch all users.");
+            throw new Error("Can't fetch all users. (repository) ");
         }
     }
     async findOne(email: string): Promise<UserAttributes> {
@@ -18,7 +18,7 @@ export class UserRepository implements IUserRepository<UserAttributes, string> {
             const user = await db.User.findOne({ where: { email: email } });
             return user;
         } catch (error) {
-            throw new Error("Can't find user with email: " + email);
+            throw new Error(" (repository) Can't find user with email: " + email);
         }
     }
     async create(payload: any, callback: any): Promise<UserAttributes> {
@@ -27,7 +27,7 @@ export class UserRepository implements IUserRepository<UserAttributes, string> {
         const hashedPassword = await bcrypt.hash(password, 10);
         const alreadyExist = await db.User.findOne({ where: { email } });
         if (alreadyExist) {
-            throw new Error('User already exist');
+            throw new Error('User already exist (repository) ');
         }
         try {
             const userRole = role || 'user'; // Si no se proporciona, utilizar el valor predeterminado 'user'
