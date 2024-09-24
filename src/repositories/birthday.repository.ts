@@ -5,6 +5,7 @@ import db from "../models";
 export class BirthdayRepository implements IBirthdaylRepository<BirthdayAttributes, number> {
     async findAll(): Promise<BirthdayAttributes[]> {
         try {
+            console.log(db.Birthday); // Agrega este log para verificar si el modelo está definido
             return await db.Birthday.findAll(); 
         } catch (error) {
             console.error("Direct error:", error);

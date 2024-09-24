@@ -5,8 +5,8 @@ const path = require("path");
 const Sequelize = require("sequelize");
 const _process = require("process");
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
-const config = require("../../config/config.json");
+const env = process.env.NODE_ENV || "test";
+const config = require("../../config/config.json")[env];
 
 const db: any = {};
 
@@ -30,8 +30,9 @@ fs.readdirSync(__dirname)
     return (
       file.indexOf(".") !== 0 &&
       file !== basename &&
-      file.slice(-3) === ".js" || file.slice(-3) === ".ts" &&
+      (file.slice(-3) === ".js" || file.slice(-3) === ".ts") &&
       file.indexOf(".test.ts") === -1
+      
     );
   })
   .forEach((file: any) => {
