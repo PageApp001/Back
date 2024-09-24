@@ -39,8 +39,14 @@ fs.readdirSync(__dirname)
       sequelize,
       Sequelize.DataTypes
     );
-    db[model.name] = model;
-    console.log(`Loaded model: ${model.name}`);  // log para depuración
+
+    // db[model.name] = model;
+    if (model && model.name) {
+      db[model.name] = model;
+    } else {
+      console.error(`El modelo en ${file} no se cargó correctamente o no tiene la propiedad 'name'.`);
+    }
+
   });
 
 Object.keys(db).forEach((modelName) => {
