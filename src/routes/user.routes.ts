@@ -10,7 +10,7 @@ import { loginUser, registerUser } from "../controllers/auth.controller";
 
 const router = Router();
 
-router.get("/users", getUsers);
+router.get("/user", getUsers);
 router.get("");
 router.get("/user/:email", getUserById);
 router.post("/user/create", createUser);
