@@ -8,8 +8,10 @@ import path from "path";
 
 const app = express();
 
-
-app.use(cors());
+const corsOptions = {
+  origin: "*", // Permitir todas las solicitudes desde cualquier origen
+};
+app.use(cors(corsOptions));
 
 app.use(json());
 app.use(
