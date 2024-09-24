@@ -8,10 +8,8 @@ import path from 'path';
 
 const app = express();
 
-const corsOptions = {
-    origin: 'http://localhost:4200',
-};
-app.use(cors(corsOptions));
+
+app.use(cors());
 
 app.use(json());
 app.use(urlencoded({
