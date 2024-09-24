@@ -9,7 +9,8 @@ import path from "path";
 const app = express();
 
 const corsOptions = {
-  origin: "*", // Permitir todas las solicitudes desde cualquier origen
+  origin: ["http://localhost:4200", "https://front-xi-ashen.vercel.app"], // Permite múltiples orígenes
+  credentials: true, // Si necesitas que se envíen cookies con solicitudes CORS
 };
 app.use(cors(corsOptions));
 
