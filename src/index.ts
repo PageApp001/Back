@@ -9,7 +9,7 @@ import path from "path";
 const app = express();
 
 const corsOptions = {
-  origin: " http://localhost:4200/",
+  origin: "http://localhost:4200",
 };
 app.use(cors(corsOptions));
 
@@ -40,12 +40,6 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 const angularDistPath = path.join(__dirname, "../dist/intranet");
 app.use(express.static(angularDistPath));
-
-// Redirigir todas las rutas no gestionadas por la API a 'index.html'
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(angularDistPath, "index.html"));
-// });
-
 
 // servidor
 db.sequelize
