@@ -12,10 +12,12 @@ const corsOptions = {
   origin: ["http://localhost:4200", "https://front-xi-ashen.vercel.app"], // Añade los dominios permitidos
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true, // Permitir envío de cookies y credenciales si es necesario
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
+
+app.options("*", cors(corsOptions));
 
 app.use(json());
 app.use(
@@ -37,25 +39,36 @@ app.use(
   }
 );
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 app.use("/api", router);
 
-// Servir archivos estáticos desde la carpeta uploads.
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 const angularDistPath = path.join(__dirname, "../dist/intranet");
 app.use(express.static(angularDistPath));
 
-// servidor
 db.sequelize
   .sync()
   .then(() => {
     app.listen(3000, () => {
-      console.log("Se conecto correctamente");
+      console.log("Se conectó correctamente");
     });
   })
   .catch((e: Error) => {
-    console.log("here");
-
+    console.log("Error al conectar a la base de datos:");
     console.log(e.message);
   });
 
