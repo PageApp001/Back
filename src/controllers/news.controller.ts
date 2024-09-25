@@ -88,7 +88,7 @@ export const updateNews: RequestHandler = async (req: Request, res: Response) =>
     const news = await newsService.update(id, {
       titulo,
       descripcion,
-      imagen, // Actualizar con la nueva URL o la existente
+      imagen,
       fechaPublicacion,
     });
 
