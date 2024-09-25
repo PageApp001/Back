@@ -8,7 +8,7 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require("../../config/config.json");
 
-const db: any = {};
+const db: {[ key : string]: any} = {};
 
 let sequelize: any;
 if (config.use_env_variable) {
@@ -30,7 +30,7 @@ fs.readdirSync(__dirname)
     return (
       file.indexOf(".") !== 0 &&
       file !== basename &&
-      file.slice(-3) === ".js" || file.slice(-3) === ".ts" &&
+      file.slice(-3) === ".ts" &&
       file.indexOf(".test.ts") === -1
     );
   })
@@ -39,8 +39,12 @@ fs.readdirSync(__dirname)
       sequelize,
       Sequelize.DataTypes
     );
-    db[model.name] = model;
-    console.log(`Loaded model: ${model.name}`);  // log para depuración
+    // db[model.name] = model;
+    if (model && model.name) {
+      db[model.name] = model;
+    } else {
+      console.error(`El modelo en ${file} no se cargó correctamente o no tiene la propiedad 'name'.`);
+    }
   });
 
 Object.keys(db).forEach((modelName) => {
@@ -49,6 +53,16 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
+const syncDatabase = async () => {
+  try {
+      await sequelize.sync({ force: false }); // Usa { force: true } solo en desarrollo para borrar y recrear las tablas
+      console.log('Tablas sincronizadas correctamente.');
+  } catch (error) {
+      console.error('Error al sincronizar las tablas:', error);
+  }
+};
+
+syncDatabase();
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

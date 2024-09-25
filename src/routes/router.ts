@@ -6,6 +6,7 @@ import carouselRoutes from "./carousel.routes";
 import linkRoutes from "./link.routes";
 import birthdayRoutes from "./birthday.routes";
 import eventRoutes from "./events.routes";
+import imageRoutes from "./image.routes"
 
 
 const router = Router();
@@ -24,5 +25,7 @@ router.use(linkRoutes);
 router.use(birthdayRoutes);
 //Event routes
 router.use(eventRoutes);
+//Image routes
+router.use(imageRoutes)
 
 export default router;

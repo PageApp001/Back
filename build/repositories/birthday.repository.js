@@ -18,6 +18,7 @@ class BirthdayRepository {
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log(models_1.default.Birthday); // Agrega este log para verificar si el modelo está definido
                 return yield models_1.default.Birthday.findAll();
             }
             catch (error) {

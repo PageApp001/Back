@@ -8,8 +8,12 @@ import path from "path";
 
 const app = express();
 
-
-app.use(cors());
+const corsOptions = {
+  origin: ["https://front-xi-ashen.vercel.app"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOptions));
 
 app.use(json());
 app.use(
