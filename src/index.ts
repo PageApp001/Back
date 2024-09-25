@@ -9,7 +9,7 @@ import path from "path";
 const app = express();
 
 const corsOptions = {
-  origin: ["https://front-xi-ashen.vercel.app"],
+  origin: ["https://front-steel-six.vercel.app"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
 };
