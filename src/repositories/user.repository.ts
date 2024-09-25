@@ -2,15 +2,16 @@ import { UserAttributes } from "../models/user";
 import IUserRepository from "./interfaces/user.repository.interface";
 import db from "../models";
 import bcrypt from 'bcrypt';
+import Subscription from "../models/subscription";
 
 
 export class UserRepository implements IUserRepository<UserAttributes, string> {
-    async findAll(): Promise<UserAttributes[]> {
+    async findAll(options?: any): Promise<UserAttributes[]> {
         try {
-            const users = await db.User.findAll();
+            const users = await db.User.findAll(options);
             return users;
         } catch (error) {
-            throw new Error("Can't fetch all users. (repository) ");
+            throw new Error("Can't fetch all users.");
         }
     }
     async findOne(email: string): Promise<UserAttributes> {
@@ -18,7 +19,7 @@ export class UserRepository implements IUserRepository<UserAttributes, string> {
             const user = await db.User.findOne({ where: { email: email } });
             return user;
         } catch (error) {
-            throw new Error(" (repository) Can't find user with email: " + email);
+            throw new Error("Can't find user with email: " + email);
         }
     }
     async create(payload: any, callback: any): Promise<UserAttributes> {
@@ -27,7 +28,7 @@ export class UserRepository implements IUserRepository<UserAttributes, string> {
         const hashedPassword = await bcrypt.hash(password, 10);
         const alreadyExist = await db.User.findOne({ where: { email } });
         if (alreadyExist) {
-            throw new Error('User already exist (repository) ');
+            throw new Error('User already exist');
         }
         try {
             const userRole = role || 'user'; // Si no se proporciona, utilizar el valor predeterminado 'user'
