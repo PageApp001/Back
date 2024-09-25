@@ -84,7 +84,7 @@ export const updateNews: RequestHandler = async (req: Request, res: Response) =>
       imagen = result.secure_url; // Actualizar la imagen con la URL de Cloudinary
     }
 
-    // Actualizar la noticia
+    
     const news = await newsService.update(id, {
       titulo,
       descripcion,
