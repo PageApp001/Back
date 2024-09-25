@@ -1,4 +1,4 @@
-import multer from 'multer';
+import multer from "multer";
 
 // Almacena los archivos en la memoria (buffer)
 const storage = multer.memoryStorage();

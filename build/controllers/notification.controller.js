@@ -10,21 +10,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.subscribe = void 0;
-// Ruta para manejar la suscripción
+const subscription_repository_1 = require("../repositories/subscription.repository");
+const notificationService_1 = require("../services/notificationService");
 function subscribe(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const SubscriptionAttributes = req.body;
+        const subscriptionData = req.body;
         try {
-            // Guardar la suscripción en la base de datos usando Sequelize
-            const newSubscription = yield SubscriptionAttributes.create({
-                endpoint: SubscriptionAttributes.endpoint,
-                keys: JSON.stringify(SubscriptionAttributes.keys) // Aseguramos que 'keys' se almacene como string en la DB
+            // Valida los datos
+            if (!subscriptionData.endpoint || !subscriptionData.keys) {
+                return res.status(400).json({ error: 'Faltan datos de suscripción' });
+            }
+            // Guarda la suscripción en la base de datos
+            const subscriptionRepository = new subscription_repository_1.SubscriptionRepository();
+            const newSubscription = yield subscriptionRepository.create({
+                endpoint: subscriptionData.endpoint,
+                keys: JSON.stringify(subscriptionData.keys),
             });
+            // Responde que la suscripción fue guardada exitosamente
             res.status(201).json({ message: 'Suscripción guardada exitosamente', data: newSubscription });
+            // Datos para la notificación
+            const notificationData = {
+                title: 'Bienvenido a las notificaciones',
+                body: 'Gracias por suscribirte a nuestras notificaciones push!',
+                icon: '/icon.png', // Icono de la notificación
+                url: 'https://front-xi-ashen.vercel.app/home',
+            };
+            yield (0, notificationService_1.sendPushNotification)(subscriptionData);
         }
         catch (error) {
-            console.error('Error al guardar la suscripción:', error);
-            res.status(500).json({ error: 'Ocurrió un error al guardar la suscripción' });
+            console.error('Error al guardar la suscripción o enviar notificación:', error);
+            res.status(500).json({ error: 'Ocurrió un error al guardar la suscripción o enviar notificación' });
         }
     });
 }

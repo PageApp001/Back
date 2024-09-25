@@ -12,7 +12,7 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 const corsOptions = {
-    origin: ["https://front-xi-ashen.vercel.app"],
+    origin: ["https://front-steel-six.vercel.app"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: ["Content-Type", "Authorization"],
 };

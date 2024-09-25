@@ -11,17 +11,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.subscribe = exports.deleteNews = exports.updateNews = exports.getNewsById = exports.getNews = exports.createNews = void 0;
 const news_services_1 = require("../services/news.services");
+const cloudinary_service_1 = require("../services/cloudinary.service");
 const subscriptions = [];
+const cloudinaryService = new cloudinary_service_1.CloudinaryService();
 const createNews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newsService = new news_services_1.NewsService();
     try {
         const { titulo, descripcion } = req.body;
-        const imagen = req.file ? req.file.filename : null;
+        const file = req.file;
         const fechaPublicacion = new Date();
+        if (!file) {
+            return res.status(400).json({ message: "Image is required" });
+        }
+        // Subir la imagen a Cloudinary
+        const result = yield cloudinaryService.uploadImage(file);
+        // Crear la noticia con la URL de la imagen de Cloudinary
         const news = yield newsService.create({
             titulo,
             descripcion,
-            imagen,
+            imagen: result.secure_url, // Usar la URL de la imagen en Cloudinary
             fechaPublicacion,
         });
         return res.status(201).json({
@@ -68,7 +76,13 @@ const updateNews = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const newsService = new news_services_1.NewsService();
     try {
         const { titulo, descripcion, fechaPublicacion } = req.body;
-        const imagen = req.file ? req.file.filename : req.body.imagen;
+        let imagen = req.body.imagen; // Mantener la URL existente de la imagen
+        const file = req.file; // Nueva imagen, si se sube
+        // Si hay una nueva imagen, subirla a Cloudinary
+        if (file) {
+            const result = yield cloudinaryService.uploadImage(file);
+            imagen = result.secure_url; // Actualizar la imagen con la URL de Cloudinary
+        }
         const news = yield newsService.update(id, {
             titulo,
             descripcion,

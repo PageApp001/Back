@@ -16,14 +16,14 @@ exports.UserRepository = void 0;
 const models_1 = __importDefault(require("../models"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 class UserRepository {
-    findAll() {
+    findAll(options) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const users = yield models_1.default.User.findAll();
+                const users = yield models_1.default.User.findAll(options);
                 return users;
             }
             catch (error) {
-                throw new Error("Can't fetch all users. (repository) ");
+                throw new Error("Can't fetch all users.");
             }
         });
     }
@@ -34,7 +34,7 @@ class UserRepository {
                 return user;
             }
             catch (error) {
-                throw new Error(" (repository) Can't find user with email: " + email);
+                throw new Error("Can't find user with email: " + email);
             }
         });
     }
@@ -44,7 +44,7 @@ class UserRepository {
             const hashedPassword = yield bcrypt_1.default.hash(password, 10);
             const alreadyExist = yield models_1.default.User.findOne({ where: { email } });
             if (alreadyExist) {
-                throw new Error('User already exist (repository) ');
+                throw new Error('User already exist');
             }
             try {
                 const userRole = role || 'user'; // Si no se proporciona, utilizar el valor predeterminado 'user'
