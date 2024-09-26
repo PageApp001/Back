@@ -5,7 +5,7 @@ import {
   getBirthdayImages,
 } from "../controllers/birthday.controller";
 
-import {upload} from "../config/multer.config";
+import upload from "../config/multer.config";
 
 const router = Router();
 

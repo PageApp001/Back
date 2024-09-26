@@ -6,6 +6,7 @@ import carouselRoutes from "./carousel.routes";
 import linkRoutes from "./link.routes";
 import birthdayRoutes from "./birthday.routes";
 import eventRoutes from "./events.routes";
+import SubsRoute from "./notification.routes"
 
 
 
@@ -25,6 +26,8 @@ router.use(linkRoutes);
 router.use(birthdayRoutes);
 //Event routes
 router.use(eventRoutes);
+//Sub route
+router.use(SubsRoute)
 
 
 export default router;

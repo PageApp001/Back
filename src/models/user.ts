@@ -23,9 +23,9 @@ class User extends Model<UserAttributes> implements UserAttributes {
     password!: string;
     role!: string;
 
-    static associate(models: any) {
-        this.hasMany(models.Subscription, { foreignKey: 'userId' });
-      };
+    // static associate(models: any) {
+    //     this.hasMany(models.Subscription, { foreignKey: 'userId' });
+    //   };
       
 };
 
@@ -70,7 +70,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         },
         {
             sequelize,
-            modelName: 'Subscription',
+            // modelName: 'users',
             tableName: 'users',
         }
     );
@@ -78,4 +78,4 @@ module.exports = (sequelize: any, DataTypes: any) => {
 };
 
 
-export default User;
+// export default User;

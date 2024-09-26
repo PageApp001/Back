@@ -5,20 +5,15 @@ import Subscription from "../models/subscription";
 
 webPush.setVapidDetails(
   'mailto:tu-correo@example.com',
-  'BCxp2qn_2N3JPP9dbgFMAxwclxNiVt5XHAtadIDt4VtGz025nStzS7ho2Jwm09URIzNnkkcNAJomRM_p-WU',
-  '9_vFDbaWTNLcDgLfIA7gfioq0HzKycP5fzon_LVv8mA'
+  'BG9EAv52WeRHgTyvrAvPehvsH_FKd0ZzVQigrs1tjBoLSXD706bRrqJgvSSl-wDw7Dcj33-w6EN2r8K3lISOfnA',
+  'uLsfKmvKmXkTtNOMuDMBK_Y2oJTjgcNYRRrqrrmLdnI'
 );
 
 export async function sendPushNotification(data: any) {
   const userRepository = new UserRepository();
   
   // Obtén todos los usuarios junto con sus suscripciones
-  const users = await userRepository.findAll({
-    include: {
-      model: Subscription, 
-      required: true, 
-    },
-  });
+  const users = await userRepository.findAll();
 
   if (!users || users.length === 0) {
     throw new Error('No hay usuarios disponibles para la notificación');

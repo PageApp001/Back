@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { upload } from '../config/multer.config'; // la configuración de multer
+import  upload from '../config/multer.config'; // la configuración de multer
 import {
   createCarouselImage,
   deleteCarouselImage,

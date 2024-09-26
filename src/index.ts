@@ -9,7 +9,7 @@ import path from "path";
 const app = express();
 
 const corsOptions = {
-  origin: ["https://front-steel-six.vercel.app"],
+  origin: ["https://front-steel-six.vercel.app" , "http://localhost:4200"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -42,6 +42,10 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 const angularDistPath = path.join(__dirname, "../dist/intranet");
 app.use(express.static(angularDistPath));
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'dist/intranet/index.html'));
+});
 
 // servidor
 db.sequelize

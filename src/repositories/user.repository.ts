@@ -2,13 +2,11 @@ import { UserAttributes } from "../models/user";
 import IUserRepository from "./interfaces/user.repository.interface";
 import db from "../models";
 import bcrypt from 'bcrypt';
-import Subscription from "../models/subscription";
-
 
 export class UserRepository implements IUserRepository<UserAttributes, string> {
-    async findAll(options?: any): Promise<UserAttributes[]> {
+    async findAll(): Promise<UserAttributes[]> {
         try {
-            const users = await db.User.findAll(options);
+            const users = await db.User.findAll();
             return users;
         } catch (error) {
             throw new Error("Can't fetch all users.");
