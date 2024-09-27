@@ -12,7 +12,7 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 const corsOptions = {
-    origin: ["https://front-xi-ashen.vercel.app"],
+    origin: 'http://192.168.100.42:4200',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -35,7 +35,7 @@ app.use(express_1.default.static(angularDistPath));
 index_1.default.sequelize
     .sync()
     .then(() => {
-    app.listen(3000, () => {
+    app.listen(3000, '0.0.0.0',() => {
         console.log("Se conecto correctamente");
     });
 })
