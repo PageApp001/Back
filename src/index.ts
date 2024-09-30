@@ -9,11 +9,13 @@ import path from "path";
 const app = express();
 
 const corsOptions = {
-  origin: ["https://front-steel-six.vercel.app" , "http://localhost:4200"],
+  origin: "*",  // Temporalmente permite cualquier origen para la red LAN
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
+
+
 
 app.use(json());
 app.use(
@@ -40,18 +42,11 @@ app.use("/api", router);
 // Servir archivos estáticos desde la carpeta uploads.
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-const angularDistPath = path.join(__dirname, "../dist/intranet");
-app.use(express.static(angularDistPath));
-
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'dist/intranet/index.html'));
-});
-
 // servidor
 db.sequelize
   .sync()
   .then(() => {
-    app.listen(3000, () => {
+    app.listen(3000,'0.0.0.0', () => {
       console.log("Se conecto correctamente");
     });
   })
