@@ -9,7 +9,7 @@ import path from "path";
 const app = express();
 
 const corsOptions = {
-  origin: "*",  // Temporalmente permite cualquier origen para la red LAN
+  origin: "http://192.168.6.248:4200",  // Temporalmente permite cualquier origen para la red LAN
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
 };
