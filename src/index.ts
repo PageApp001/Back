@@ -9,7 +9,7 @@ import path from "path";
 const app = express();
 
 const corsOptions = {
-  origin: "http://192.168.6.248:4200",  // Temporalmente permite cualquier origen para la red LAN
+  origin: "http://192.168.100.37:4200",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -24,7 +24,8 @@ app.use(
   })
 );
 
-app.use(
+
+app.use(  
   (
     err: Error,
     req: express.Request,
@@ -42,7 +43,6 @@ app.use("/api", router);
 // Servir archivos estáticos desde la carpeta uploads.
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-// servidor
 db.sequelize
   .sync()
   .then(() => {
