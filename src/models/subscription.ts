@@ -1,58 +1,49 @@
-import { Model, DataTypes } from "sequelize";
-// import User from './user';
-import sequelize from "sequelize";
-// import User from "./user";
+import { Model, DataTypes, Optional } from "sequelize";
+
 export interface SubscriptionAttributes {
   id?: number;
   endpoint: string;
   keys: string;
 }
-class Subscription
-  extends Model<SubscriptionAttributes>
-  implements SubscriptionAttributes
-{
-  id?: number;
-  endpoint!: string;
-  keys!: string;
 
-  // static associate(models: any) {
-  //   Subscription.belongsTo(models.User, { foreignKey: 'userId' });
-  // }
-}
+// Definimos una interfaz que extiende Partial<SubscriptionAttributes> para los atributos opcionales
+interface SubscriptionCreationAttributes extends Optional<SubscriptionAttributes, "id"> {}
 
-module.exports = (sequelize: any, DataTypes: any) => {
-  Subscription.init(
-    {
-      id: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        autoIncrement: true,
-        primaryKey: true,
-      },
-      endpoint: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      keys: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      // userId: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false,
-      //   references: {
-      //     model: User,
-      //     key: "id",
-      //   },
-      // },
-    },
-    {
-      sequelize,
-      modelName: "Subscription",
-      tableName: "subscriptions",
+// Creamos la clase Subscription que extiende Model<SubscriptionAttributes, SubscriptionCreationAttributes>
+module.exports = (sequelize: any, DataTypes: any)=>{
+  class Subscription
+    extends Model<SubscriptionAttributes, SubscriptionCreationAttributes>
+    implements SubscriptionAttributes
+  {
+     id!: number;
+     endpoint!: string;
+     keys!: string; 
     }
-  );
+    Subscription.init(
+      {
+        id: {
+          type: DataTypes.INTEGER.UNSIGNED,
+          autoIncrement: true,
+          primaryKey: true,
+        },
+        endpoint: {
+          type: DataTypes.TEXT,
+          allowNull: false,
+        },
+        keys: {
+          type: DataTypes.TEXT,
+          allowNull: true,
+        },
+        
+      },
+      {
+        sequelize,
+        tableName: 'subscription'
+      }
+    );
+    
 
-  return Subscription;
-};
+    return Subscription;  
+  };
+  
 
-export default Subscription;

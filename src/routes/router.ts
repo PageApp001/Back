@@ -7,8 +7,8 @@ import linkRoutes from "./link.routes";
 import birthdayRoutes from "./birthday.routes";
 import eventRoutes from "./events.routes";
 import SubsRoute from "./notification.routes"
-
-
+import notificationRoutes from './notification.routes'
+import qualityRoutes from './quality.routes'
 
 const router = Router();
 
@@ -28,6 +28,9 @@ router.use(birthdayRoutes);
 router.use(eventRoutes);
 //Sub route
 router.use(SubsRoute)
-
+//notification
+router.use(notificationRoutes)
+//quality
+router.use(qualityRoutes);
 
 export default router;
